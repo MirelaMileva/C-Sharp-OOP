@@ -14,8 +14,31 @@ namespace Person
             this.Name = name;
             this.Age = age;
         }
-        public string Name { get; set; }
-        public int Age { get; set; }
+        public string Name 
+        { 
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+            }
+        }
+        public int Age 
+        { 
+            get
+            {
+                return this.age;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    this.age = value;
+                }
+            }
+        }
 
         public override string ToString()
         {
