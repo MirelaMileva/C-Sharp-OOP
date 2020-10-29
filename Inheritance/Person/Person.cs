@@ -6,6 +6,7 @@ namespace Person
 {
     public class Person
     {
+        private const int PERSON_MIN_AGE = 0;
         private string name;
         private int age;
 
@@ -25,15 +26,15 @@ namespace Person
                 this.name = value;
             }
         }
-        public int Age 
+        public virtual int Age
         { 
             get
             {
                 return this.age;
             }
-            set
+            protected set
             {
-                if (value >= 0)
+                if (value >= PERSON_MIN_AGE)
                 {
                     this.age = value;
                 }
