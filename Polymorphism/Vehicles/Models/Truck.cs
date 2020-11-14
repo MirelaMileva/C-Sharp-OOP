@@ -4,8 +4,8 @@
     {
         private const double FUEL_CONSUMPTION_INCR = 1.6;
         private const double REFUEL_SUCC_COEFF = 0.95;
-        public Truck(double fuelQuantity, double fuelConsumption) 
-            : base(fuelQuantity, fuelConsumption)
+        public Truck(double fuelQuantity, double fuelConsumption, double tankCapacity) 
+            : base(fuelQuantity, fuelConsumption, tankCapacity)
         {
 
         }
@@ -14,7 +14,8 @@
 
         public override void Refuel(double amount)
         {
-            base.Refuel(amount * REFUEL_SUCC_COEFF);
+            base.Refuel(amount);
+            this.FuelQuantity -= (amount * 0.05);
         }
     }
 }

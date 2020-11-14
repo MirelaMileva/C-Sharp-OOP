@@ -1,11 +1,11 @@
 ﻿namespace Vehicles.Core
 {
-    using Contracts;
-    using Models;
     using System;
     using System.Linq;
-    using System.Net.Http.Headers;
-    using Vehicles.Core.Factories;
+
+    using Contracts;
+    using Models;
+    using Core.Factories;
 
     public class Engine : IEngine
     {
@@ -19,6 +19,7 @@
         {
             Vehicle car = ProcessVehicleInfo();
             Vehicle truck = ProcessVehicleInfo();
+            Vehicle bus = ProcessVehicleInfo();
 
             int n = int.Parse(Console.ReadLine());
 
@@ -44,6 +45,17 @@
                         {
                             this.Drive(truck, arg);
                         }
+                        else if (vehicleType == "Bus")
+                        {
+                            this.Drive(bus, arg);
+                        }
+                    }
+                    else if (cmdType == "DriveEmpty")
+                    {
+                        if (vehicleType == "Bus")
+                        {
+                            this.DriveEmpty(bus, arg);
+                        }
                     }
                     else if (cmdType == "Refuel")
                     {
@@ -54,6 +66,10 @@
                         else if (vehicleType == "Truck")
                         {
                             this.Refuel(truck, arg);
+                        }
+                        else if (vehicleType == "Bus")
+                        {
+                            this.Refuel(bus, arg);
                         }
                     }
                 }
@@ -66,6 +82,7 @@
 
             Console.WriteLine(car);
             Console.WriteLine(truck);
+            Console.WriteLine(bus);
         }
 
         private void Refuel(Vehicle vehicle, double amount)
@@ -77,6 +94,11 @@
             Console.WriteLine(vehicle.Drive(kilometers));
         }
 
+        private void DriveEmpty(Vehicle vehicle, double kilometers)
+        {
+            Console.WriteLine(vehicle.DriveEmpty(kilometers));
+        }
+
         private Vehicle ProcessVehicleInfo()
         {
             string[] vehicleArgs = Console.ReadLine()
@@ -86,8 +108,9 @@
             string vehicleType = vehicleArgs[0];
             double fuelQuantity = double.Parse(vehicleArgs[1]);
             double fuelConsumption = double.Parse(vehicleArgs[2]);
+            double tankCapacity = double.Parse(vehicleArgs[3]);
 
-            Vehicle vehicle = this.vehicleFactory.CreateVehicle(vehicleType, fuelQuantity, fuelConsumption);
+            Vehicle vehicle = this.vehicleFactory.CreateVehicle(vehicleType, fuelQuantity, fuelConsumption, tankCapacity);
 
             return vehicle;
         }
