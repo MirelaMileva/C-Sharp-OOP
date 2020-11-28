@@ -1,7 +1,7 @@
 ﻿namespace Skeleton
 {
     using System;
-    public class Dummy
+    public class Dummy : ITarget
     {
         private int health;
         private int experience;
