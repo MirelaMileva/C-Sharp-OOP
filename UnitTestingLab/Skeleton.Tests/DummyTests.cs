@@ -5,28 +5,36 @@
     [TestFixture]
     public class DummyTests
     {
+        private const int Experience = 200;
+        private const int AttackPoints = 30;
+        private const int DeadDummyHealth = 0;
+        private const int AliveDummyHealth = 100;
+
+        private Dummy aliveDummy;
+        private Dummy deadDummy;
+
+        [SetUp]
+        public void SetDummies()
+        {
+            this.aliveDummy = new Dummy(AliveDummyHealth, Experience);
+            this.deadDummy = new Dummy(DeadDummyHealth, Experience);
+        }
         [Test]
         public void DummyShouldLoseHealthIfAttacked()
         {
-            //Arrange
-            var dummy = new Dummy(100, 200);
-
             //Act
-            dummy.TakeAttack(30);
+            this.aliveDummy.TakeAttack(AttackPoints);
 
             //Assert
-            Assert.That(dummy.Health, Is.EqualTo(70));
+            Assert.That(this.aliveDummy.Health, Is.EqualTo(70));
         }
 
         [Test]
         public void DummyThrowsExceptionIfAttackedAndWithoutHealth()
         {
-            //Arrange
-            var dummy = new Dummy(0, 200);
-
             //Assert
             Assert
-                .That(() => dummy.TakeAttack(30), //Act
+                .That(() => this.deadDummy.TakeAttack(AttackPoints), //Act
                 Throws.InvalidOperationException.With.Message.EqualTo("Dummy is dead.")
                 );
         }
@@ -34,24 +42,18 @@
         [Test]
         public void DummyShouldGiveExperienceIfDead()
         {
-            //Arrange
-            var dummy = new Dummy(0, 200);
-
             //Act
-            var experince = dummy.GiveExperience();
+            var experince = this.deadDummy.GiveExperience();
 
             //Assert
-            Assert.That(experince, Is.EqualTo(200));
+            Assert.That(experince, Is.EqualTo(Experience));
         }
 
         [Test]
         public void DummyShouldNotGiveExperienceIfAlive()
         {
-            //Arrange
-            var dummy = new Dummy(100, 200);
-
             //Assert
-            Assert.That(() => dummy.GiveExperience(),
+            Assert.That(() => this.aliveDummy.GiveExperience(),
                 Throws.InvalidOperationException.With.Message.EqualTo("Target is not dead."));
         }
     }

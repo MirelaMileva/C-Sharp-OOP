@@ -6,11 +6,14 @@
     [TestFixture]
     public class AxeTests
     {
+        private const int AttackPoints = 10;
+
+
         [Test]
         public void AxeShouldLoseDurabilityAfterAttack()
         {
             //Arrange
-            var axe = new Axe(10, 5);
+            var axe = new Axe(AttackPoints, 5);
             var target = new Dummy(100, 500);
 
             //Act
@@ -24,7 +27,7 @@
         public void AxeShouldThrowExceptionIfAnAttackIsMadeWithBrokenWeapon()
         {
             //Arrange
-            var axe = new Axe(10, 0);
+            var axe = new Axe(AttackPoints, 0);
             var target = new Dummy(100, 500);
 
             //Assert
